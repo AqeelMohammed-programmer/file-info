@@ -2,6 +2,7 @@
 #include <sys/stat.h>
 #include <errno.h>
 #include <string.h>
+#include <stdlib.h>
 
 void print_error(const char *message) {
     printf("\x1b[31m"); // red
@@ -9,18 +10,22 @@ void print_error(const char *message) {
     printf("\x1b[0m");  // reset
 }
 
-int main(/*int argc, char *argv[]*/) {
-    // if (argc > 1) {
-    //     printf("the first arg is %s\n", argv[1]);
-    // }
-
-    // print_error("this is error!");
+int main(int argc, char *argv[]) {
+    if (argc <= 1) {
+        print_error("you should provide the file path\n"
+                    "Usage: file-info <PATH>\n"
+                    "Example: file-info ./myfile.txt");
+        return EXIT_FAILURE;
+    }
 
     struct stat info;
 
-    if (stat("./.gitignor", &info) == -1) {
+    if (stat(argv[1], &info) == -1) {
         print_error(strerror(errno));
+        return EXIT_FAILURE;
     }
 
-    return 0;
+    printf("the size of the file in bytes is %ld\n", info.st_size);
+
+    return EXIT_SUCCESS;
 }
