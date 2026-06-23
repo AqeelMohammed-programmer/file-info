@@ -1,3 +1,5 @@
 file-info
 *.o
 *.out
+
+*.vscode/

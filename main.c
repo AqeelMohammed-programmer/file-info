@@ -1,51 +1,10 @@
-#define _GNU_SOURCE
-
-#define INFO_COLOR  "\x1b[34m"
-#define ERROR_COLOR "\x1b[31m"
-#define RESET_COLOR "\x1b[0m"
-#define HORIZONTAL_LINE "―――――――――――――――――――――――――――――――――――――――――――\n"
+#include "file_info.h"
+#include "display.h"
 
 #include <stdio.h>
-#include <sys/stat.h>
 #include <errno.h>
 #include <string.h>
 #include <stdlib.h>
-
-void print_error(const char *message) {
-    printf(ERROR_COLOR); // red
-    printf("Error: %s\n", message);
-    printf(RESET_COLOR);  // reset
-}
-
-struct FileInfo
-{
-    const char *file_name;
-    size_t file_size;
-
-};
-
-int get_file_info(const char *file_path, struct FileInfo *file_info) {
-    struct stat info;
-
-    if (stat(file_path, &info) < 0) {
-        return -1;
-    }
-
-    file_info->file_size = info.st_size;
-
-    file_info->file_name = basename(file_path);
-
-    return 0;
-}
-
-void print_file_info(const struct FileInfo *file_info) {
-    printf(INFO_COLOR); // red
-    printf(HORIZONTAL_LINE);
-    printf("File name: %s\n", file_info->file_name);
-    printf("File size(in byets): %zu\n", file_info->file_size);
-    printf(HORIZONTAL_LINE);
-    printf(RESET_COLOR);  // reset
-}
 
 int main(int argc, char *argv[]) {
     if (argc <= 1) {
