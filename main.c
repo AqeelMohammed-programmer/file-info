@@ -1,7 +1,6 @@
 #include "file_info.h"
 #include "display.h"
 
-#include <stdio.h>
 #include <errno.h>
 #include <string.h>
 #include <stdlib.h>
