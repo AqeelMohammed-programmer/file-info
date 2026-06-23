@@ -1,3 +1,5 @@
+#define _GNU_SOURCE
+
 #include <stdio.h>
 #include <sys/stat.h>
 #include <errno.h>
@@ -9,6 +11,28 @@ void print_error(const char *message) {
     printf("Error: %s\n", message);
     printf("\x1b[0m");  // reset
 }
+
+struct FileInfo
+{
+    const char *file_name;
+    unsigned long file_size;
+
+};
+
+int get_file_info(const char *file_path, struct FileInfo *file_info) {
+    struct stat info;
+
+    if (stat(file_path, &info) < 0) {
+        return -1;
+    }
+
+    file_info->file_size = info.st_size;
+
+    file_info->file_name = basename(file_path);
+
+    return 0;
+}
+
 
 int main(int argc, char *argv[]) {
     if (argc <= 1) {
