@@ -1,8 +1,9 @@
 #define _GNU_SOURCE
 
-#include "file_info.h"
 #include <sys/stat.h>
 #include <string.h>
+
+#include "file_info.h"
 
 
 int get_file_info(const char *file_path, struct FileInfo *file_info) {

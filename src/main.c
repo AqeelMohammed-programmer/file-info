@@ -1,9 +1,10 @@
-#include "file_info.h"
-#include "display.h"
-
 #include <errno.h>
 #include <string.h>
 #include <stdlib.h>
+
+#include "file_info.h"
+#include "display.h"
+
 
 int main(int argc, char *argv[]) {
     if (argc <= 1) {
